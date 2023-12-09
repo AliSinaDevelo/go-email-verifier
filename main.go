@@ -24,5 +24,19 @@ func main() {
 
 func checkDomain(domain string) {
 	var hasMX, hasSPF, hasDMARC bool
-	var spfRecords
+	var spfRecords, dmarcRecord string
+
+	mxRecords, err := net.LookupMX(domain)
+	
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+	}
+	if len(mxRecords) > 0 {
+		hasMX = true
+	}
+	
+	txtRecords, err := net.LookupTXT(domain)
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+	}
 }
